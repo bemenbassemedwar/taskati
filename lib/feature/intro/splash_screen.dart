@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:taskatii/core/functions/navigation.dart';
 import 'package:taskatii/core/utils/text_Styles.dart';
 import 'package:taskatii/feature/upload/upload_screen.dart';
@@ -28,10 +29,10 @@ class _SplashSceenState extends State<SplashSceen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Lottie.asset(
-              //   'assets/images/logo.json',
-              //   width: 250,
-              // ),
+              Lottie.asset(
+                'assets/images/logo.json',
+                width: 250,
+              ),
               Text('Taskati', style: getTitleTextStyle()),
               Text(
                 'it\'s time to get oranized!',

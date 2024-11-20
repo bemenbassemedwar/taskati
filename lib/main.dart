@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskatii/feature/upload/upload_screen.dart';
 
+import 'feature/intro/splash_screen.dart';
+
 void main() {
   runApp(const MainApp());
 }
@@ -10,6 +12,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const UploadScreen();
+    return const MaterialApp(
+      home: UploadScreen(),
+    );
   }
 }
