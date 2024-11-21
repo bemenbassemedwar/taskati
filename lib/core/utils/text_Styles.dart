@@ -10,7 +10,7 @@ TextStyle getTitleTextStyle(
       fontWeight: fontWeight ?? FontWeight.bold);
 }
 
-TextStyle getBodyTextStyle(
+TextStyle getBodyTextStyle(BuildContext context, 
     {double? fontSize, Color? color, FontWeight? fontWeight}) {
   return TextStyle(
       color: color ?? AppColor.darkblueColor,

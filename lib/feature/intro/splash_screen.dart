@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskatii/core/functions/navigation.dart';
 import 'package:taskatii/core/utils/text_Styles.dart';
@@ -15,9 +16,15 @@ class _SplashSceenState extends State<SplashSceen> {
   @override
   void initState() {
     // TODO: implement initState
+    navigateTpUploadScreen();
     super.initState();
-    Future.delayed(const Duration(seconds: 3));
-    pushWithReplacement(context, const UploadScreen());
+  }
+
+  Future<void> navigateTpUploadScreen() async {
+    await Future.delayed(const Duration(seconds: 10));
+    if (mounted) {
+      pushWithReplacement(context, const UploadScreen());
+    }
   }
 
   @override
@@ -34,6 +41,7 @@ class _SplashSceenState extends State<SplashSceen> {
                 width: 250,
               ),
               Text('Taskati', style: getTitleTextStyle()),
+              const Gap(10),
               Text(
                 'it\'s time to get oranized!',
                 style: getSmallTextStyle(),
