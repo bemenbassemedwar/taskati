@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:taskatii/core/functions/navigation.dart';
+import 'package:taskatii/core/services/app_local_storage.dart';
 import 'package:taskatii/core/utils/text_Styles.dart';
+import 'package:taskatii/feature/home/pages/home_view.dart';
 import 'package:taskatii/feature/upload/upload_screen.dart';
 
 class SplashSceen extends StatefulWidget {
@@ -15,16 +17,16 @@ class SplashSceen extends StatefulWidget {
 class _SplashSceenState extends State<SplashSceen> {
   @override
   void initState() {
-    // TODO: implement initState
-    navigateTpUploadScreen();
     super.initState();
-  }
-
-  Future<void> navigateTpUploadScreen() async {
-    await Future.delayed(const Duration(seconds: 10));
-    if (mounted) {
-      pushWithReplacement(context, const UploadScreen());
-    }
+    bool isUploaded =
+        AppLocalStorage.getCacheData(AppLocalStorage.isuploadKey) ?? false;
+    Future.delayed(const Duration(seconds: 10), () {
+      if (isUploaded) {
+        pushWithReplacement(context, const HomeScreen());
+      } else {
+        pushWithReplacement(context, const UploadScreen());
+      }
+    });
   }
 
   @override

@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:taskatii/core/functions/dailogs.dart';
 import 'package:taskatii/core/functions/navigation.dart';
+import 'package:taskatii/core/services/app_local_storage.dart';
 import 'package:taskatii/core/utils/colors.dart';
 import 'package:taskatii/core/utils/text_Styles.dart';
-import 'package:taskatii/feature/home/home_view.dart';
+import 'package:taskatii/feature/home/pages/home_view.dart';
 
 import '../../core/widgets/custom_button.dart';
 
@@ -35,14 +38,17 @@ class _UploadScreenState extends State<UploadScreen> {
                 } else if (path != null && name.isEmpty) {
                   showErrorDialog(context, 'Please enter your name');
                 } else {
-                  var box = Hive.box('user');
-                await  box.put('isupload', true);
+                  AppLocalStorage.cacheData(AppLocalStorage.nameKey, name);
+                  AppLocalStorage.cacheData(AppLocalStorage.imageKey, path);
+                  AppLocalStorage.cacheData(AppLocalStorage.isuploadKey, true);
                   pushWithReplacement(context, const HomeScreen());
                 }
               },
               child: Text(
                 'Done',
-                style: getBodyTextStyle(context, color: AppColor.primaryColor),
+                style: getBodyTextStyle(
+                  context,
+                ),
               ))
         ],
       ),
@@ -55,7 +61,7 @@ class _UploadScreenState extends State<UploadScreen> {
               CircleAvatar(
                 radius: 70,
                 backgroundImage: path != null
-                    ? AssetImage(path!)
+                    ? Image.file(File(path!)).image
                     : const AssetImage('assets/images/user.png'),
                 backgroundColor: AppColor.primaryColor,
               ),
@@ -79,25 +85,12 @@ class _UploadScreenState extends State<UploadScreen> {
               ),
               const Gap(28),
               TextFormField(
-                onChanged: (value) {
-                  name = value;
-                },
-                decoration: InputDecoration(
+                  onChanged: (value) {
+                    name = value;
+                  },
+                  decoration: const InputDecoration(
                     hintText: ('Enter your name here'),
-                    hintStyle: getSmallTextStyle(),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColor.primaryColor),
-                        borderRadius: BorderRadius.circular(10)),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColor.primaryColor),
-                        borderRadius: BorderRadius.circular(10)),
-                    errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColor.primaryColor),
-                        borderRadius: BorderRadius.circular(10)),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: AppColor.primaryColor),
-                        borderRadius: BorderRadius.circular(10))),
-              )
+                  ))
             ],
           ),
         ),
